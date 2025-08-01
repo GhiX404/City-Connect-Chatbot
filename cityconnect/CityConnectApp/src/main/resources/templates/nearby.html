@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Nearby Facilities – City Connect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <style>
+    .bg-tvm-green { background-color: #2E7D32; }
+    .bg-tvm-blue  { background-color: #0288D1; }
+    .text-tvm-green { color: #2E7D32; }
+    #map { height: 500px; border-radius: 0.5rem; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<header class="bg-tvm-green text-white p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="/index"><img src="/img/logo.jpg" alt="Logo" class="mr-2" width="100" height="100"></a>
+      <h1 class="text-xl font-bold">City Connect – Thiruvananthapuram</h1>
+    </div>
+    <nav class="flex space-x-4">
+      <a href="/index" class="hover:underline">Home</a>
+      <a href="/services" class="hover:underline">Services</a>
+      <a href="/complaints" class="hover:underline">Complaints</a>
+      <a href="/incidents" class="hover:underline">Incidents</a>
+      <a href="/nearby" class="hover:underline active">Nearby</a>
+      <a href="/collaboration" class="hover:underline">Collaboration</a>
+    </nav>
+    
+  </div>
+</header>
+
+<section class="container mx-auto py-8">
+  <h2 class="text-3xl font-bold text-center text-tvm-green mb-6">Nearby Facilities</h2>
+
+  <div class="mb-4 flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-4">
+    <input id="locationInput"
+           type="text"
+           placeholder="Enter your location (e.g., Palayam)"
+           class="p-2 border rounded w-full md:w-1/3"/>
+
+    <button onclick="getMyLocation()"
+            class="bg-tvm-blue text-white px-4 py-2 rounded hover:bg-blue-700">
+      Get My Location
+    </button>
+
+    <select id="category" class="p-2 border rounded">
+      <option value="">-- Select Type --</option>
+      <option value="hospital">Hospital</option>
+      <option value="police_station">Police Station</option>
+      <option value="school">School</option>
+      <option value="ev_charging">EV Charging</option>
+      <option value="parking">Parking Lot</option>
+      <option value="primary_health_center">Primary Health Center</option>
+      <option value="drinking_water_kiosk">Water Kiosk</option>
+      <option value="kseb_office">KSEB Office</option>
+      <option value="kwa_office">KWA Office</option>
+      <option value="anganwadi">Anganwadi</option>
+      <option value="public_toilet">Public Toilet</option>
+      <option value="supplyco_outlet">Supplyco Outlet</option>
+      <option value="info_kiosk">Info Kiosk</option>
+      <option value="atcs">Traffic Signal</option>
+      <option value="veterinary_hospital">Veterinary Hospital</option>
+    </select>
+    <div id="loading" class="hidden">
+      <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+    </div>
+
+    <button onclick="searchNearby()"
+            class="bg-tvm-green text-white px-4 py-2 rounded hover:bg-green-700">
+      Search
+    </button>
+  </div>
+
+  <div id="map" class="mb-6"></div>
+</section>
+
+<footer class="bg-tvm-green text-white py-6">
+  <div class="container mx-auto text-center">
+    <p>© 2025 City Connect – Thiruvananthapuram. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  let map, userMarker, markers = [];
+  let userLat, userLon;
+
+  // 1) Initialize map (no markers)
+  function initMap() {
+    map = L.map('map').setView([8.5241, 76.9366], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+  }
+  initMap();
+
+  // 2) Helper to place "You are here"
+  function placeUserMarker(lat, lon, label) {
+    if (userMarker) map.removeLayer(userMarker);
+    userMarker = L.marker([lat, lon])
+      .addTo(map)
+      .bindPopup(label)
+      .openPopup();
+  }
+
+  // 3) Get device location
+  function getMyLocation() {
+    if (!navigator.geolocation) {
+      return alert("Geolocation not supported by your browser");
+    }
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        userLat = pos.coords.latitude;
+        userLon = pos.coords.longitude;
+        map.setView([userLat, userLon], 14);
+        placeUserMarker(userLat, userLon, "You are here");
+      },
+      () => {
+        alert("Permission denied or unavailable. Please enter location manually.");
+      }
+    );
+  }
+
+  // 4) Search → geocode if needed → then actually fetch & render
+  function searchNearby() {
+    const type = document.getElementById("category").value;
+    const text = document.getElementById("locationInput").value.trim();
+
+    if (!type) {
+      return alert("Please select a facility type.");
+    }
+
+    // Decide coordinates:
+    if (text) {
+      // front-end geocoding via Nominatim
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(text)}`)
+        .then(r => r.json())
+        .then(results => {
+          if (!results.length) throw new Error("Location not found");
+          userLat = parseFloat(results[0].lat);
+          userLon = parseFloat(results[0].lon);
+          actuallySearch(type);
+        })
+        .catch(err => alert(err.message));
+    }
+    else if (userLat != null && userLon != null) {
+      // already have from Get My Location
+      actuallySearch(type);
+    }
+    else {
+      alert("No location available. Please click ‘Get My Location’ or enter a place name.");
+    }
+  }
+
+  // 5) Show loading state
+  function setLoading(isLoading) {
+    const loading = document.getElementById('loading');
+    const searchBtn = document.querySelector('button[onclick="searchNearby()"]');
+    
+    if (isLoading) {
+      loading.classList.remove('hidden');
+      searchBtn.disabled = true;
+    } else {
+      loading.classList.add('hidden');
+      searchBtn.disabled = false;
+    }
+  }
+
+  // 6) Call backend and render
+  function actuallySearch(type) {
+    map.setView([userLat, userLon], 14);
+    placeUserMarker(userLat, userLon, "You are here");
+
+    // clear old markers
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+    
+    setLoading(true);
+
+    fetch(`/api/map/nearby?lat=${userLat}&lon=${userLon}&type=${type}`)
+      .then(r => {
+        if (!r.ok) {
+          throw new Error(r.status === 404 
+            ? "No facilities found nearby." 
+            : `Failed to fetch nearby: ${r.statusText}`);
+        }
+        return r.json();
+      })
+      .then(list => {
+        if (!list || list.length === 0) {
+          throw new Error("No facilities found nearby.");
+        }
+        
+        // Add markers to map
+        list.forEach(item => {
+          const m = L.marker([item.latitude, item.longitude])
+            .addTo(map)
+            .bindPopup(`
+              <div class="max-w-xs">
+                <h4 class="font-bold">${item.name}</h4>
+                <p class="text-sm text-gray-600">${item.type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                ${item.address ? `<p class="text-sm mt-1">${item.address}</p>` : ''}
+              </div>
+            `);
+          markers.push(m);
+        });
+        
+        // If only one result, open its popup
+        if (markers.length === 1) {
+          markers[0].openPopup();
+        } else if (markers.length > 1) {
+          // Fit map to show all markers
+          const group = new L.featureGroup(markers);
+          map.fitBounds(group.getBounds().pad(0.1));
+        }
+      })
+      .catch(err => {
+        console.error('Search error:', err);
+        alert(err.message || 'An error occurred while searching for facilities.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Incident Report - City Connect</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <style>
+    .bg-tvm-green   { background-color: #2E7D32; }
+    .bg-tvm-blue    { background-color: #0288D1; }
+    .text-tvm-green { color: #2E7D32; }
+    .tab-content    { display: none; }
+    .tab-content.active { display: block; }
+    .status-open     { background-color: #FFD700; color: black; }
+    .status-progress { background-color: #1E90FF;  color: white; }
+    .status-resolved { background-color: #2E7D32;  color: white; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <header class="bg-tvm-green text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <a href="/index"><img src="/img/logo.jpg" alt="Logo" width="100" height="100" class="mr-2"/></a>
+        <h1 class="text-xl font-bold">City Connect - Thiruvananthapuram</h1>
+      </div>
+      <nav class="flex space-x-4">
+		  <a href="/index" class="hover:underline">Home</a>
+		  <a href="/services" class="hover:underline">Services</a>
+		  <a href="/complaints" class="hover:underlin ">Complaints</a>
+		  <a href="/incidents" class="hover:underline">Incidents</a>
+		  <a href="/nearby" class="hover:underline">Nearby</a>
+		  <a href="/collaboration" class="hover:underline">Collaboration</a>
+      </nav>
+    
+    </div>
+  </header>
+
+  <section class="container mx-auto py-12">
+    <h2 class="text-3xl font-bold text-center text-tvm-green mb-8">Incident Report</h2>
+    <div class="flex justify-center space-x-4 mb-6">
+      <button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="showTab('report-incident')">Report Incident</button>
+      <button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="showTab('search-incident')">Search Incident</button>
+      <button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="showTab('my-incidents')">My Incident Status</button>
+    </div>
+
+    <!-- Report -->
+    <div id="report-incident" class="tab-content active">
+      <form class="bg-white p-6 rounded-lg shadow"
+            action="/api/incidents"
+            method="post"
+            enctype="multipart/form-data">
+        <div class="mb-4">
+          <label class="block">Type</label>
+          <select name="incidentType" class="w-full p-2 border rounded" required>
+            <option value="">Select Type</option>
+            <option value="accident">Accident</option>
+            <option value="public-safety">Public Safety</option>
+            <option value="theft">Theft</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block">Description</label>
+          <textarea name="description" class="w-full p-2 border rounded" rows="4" required></textarea>
+        </div>
+        <div class="mb-4">
+          <label class="block">Location</label>
+          <input type="text" name="location" class="w-full p-2 border rounded" required/>
+        </div>
+        <div class="mb-4">
+          <label class="block">Urgency</label>
+          <select name="urgency" class="w-full p-2 border rounded" required>
+            <option value="non-emergency">Non‑Emergency</option>
+            <option value="emergency">Emergency</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="block">Image (optional)</label>
+          <input type="file" name="image" class="w-full p-2 border rounded"/>
+        </div>
+        <button type="submit" class="bg-tvm-green text-white px-4 py-2 rounded">Submit</button>
+      </form>
+    </div>
+
+    <!-- Search -->
+    <div id="search-incident" class="tab-content">
+      <div class="bg-white p-6 rounded-lg shadow space-y-4">
+        <div class="flex space-x-4">
+          <input id="search-inc-id" type="number" min="1" placeholder="Incident ID" class="w-full p-2 border rounded"/>
+          <button onclick="searchIncident()" class="bg-tvm-blue text-white px-4 py-2 rounded">Search</button>
+        </div>
+        <div id="searchIncResult"></div>
+      </div>
+    </div>
+
+    <!-- My Incidents -->
+    <div id="my-incidents" class="tab-content">
+      <div class="bg-white p-6 rounded-lg shadow space-y-4">
+        <div th:each="i : ${incidents}"
+             class="p-4 border rounded flex justify-between items-center"
+             th:attr="
+               data-id=${i.id},
+               data-type=${i.incidentType},
+               data-date=${i.date},
+               data-urg=${i.urgency},
+               data-status=${i.status},
+               data-desc=${i.description},
+               data-loc=${i.location},
+               data-img=${i.imagePath}">
+          
+          <div>
+            <h4 class="font-semibold">Incident #<span th:text="${i.id}"></span></h4>
+            <p>
+              Type: <span th:text="${i.incidentType}"></span> |
+              Date: <span th:text="${i.date}"></span>
+            </p>
+          </div>
+          <div class="flex space-x-2 items-center">
+            <span th:classappend="
+                  ${i.status.toLowerCase()=='open'} ? 'status-open' :
+                  (${i.status.toLowerCase()=='resolved'} ? 'status-resolved' :
+                  (${i.status.toLowerCase()=='in progress'} ? 'status-progress':''))"
+                  th:text="${i.status}"
+                  class="px-3 py-1 rounded"></span>
+            <button onclick="showModal(this.closest('[data-id]'))"
+                    class="bg-tvm-blue text-white px-3 py-1 rounded">View</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="complaintModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg relative w-11/12 md:w-1/2">
+      <button onclick="closeModal()" class="absolute top-2 right-4 text-2xl text-gray-700">&times;</button>
+      <h3 class="text-xl font-bold mb-4 text-tvm-green">Incident Details</h3>
+      <div id="modalContent" class="space-y-2 text-gray-800"></div>
+    </div>
+  </div>
+
+  <footer class="bg-tvm-green text-white py-6 text-center">
+    <p>© 2025 City Connect. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function showTab(id) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function searchIncident() {
+      const id = document.getElementById('search-inc-id').value.trim();
+      const out = document.getElementById('searchIncResult');
+      out.innerHTML = '';
+      if (!id) {
+        out.innerHTML = '<p class="text-red-600">Enter an ID.</p>';
+        return;
+      }
+      fetch(`/api/incidents/${id}`)
+        .then(r => { if (!r.ok) throw ''; return r.json(); })
+        .then(i => {
+          const img = i.imagePath ? `<img src="${i.imagePath}" class="mt-2 w-32 h-32 rounded"/>` : '';
+          out.innerHTML = `
+            <div class="p-4 border rounded bg-gray-50">
+              <h4 class="font-semibold">Incident #${i.id}</h4>
+              <p><strong>Type:</strong> ${i.incidentType}</p>
+              <p><strong>Urgency:</strong> ${i.urgency}</p>
+              <p><strong>Status:</strong> ${i.status}</p>
+              <p><strong>Date:</strong> ${i.date}</p>
+              <p><strong>Description:</strong> ${i.description}</p>
+              <p><strong>Location:</strong> ${i.location}</p>
+              ${img}
+            </div>`;
+        })
+        .catch(() => out.innerHTML = '<p class="text-red-600">Not found.</p>');
+    }
+
+    function showModal(el) {
+      const d = el.dataset;
+      const tag = d.img && d.img!=='null'
+        ? `<img src="${d.img}" class="mt-2 w-40 h-40 rounded"/>` : '';
+      document.getElementById('modalContent').innerHTML = `
+        <p><strong>ID:</strong> ${d.id}</p>
+        <p><strong>Type:</strong> ${d.type}</p>
+        <p><strong>Urgency:</strong> ${d.urg}</p>
+        <p><strong>Status:</strong> ${d.status}</p>
+        <p><strong>Date:</strong> ${d.date}</p>
+        <p><strong>Description:</strong> ${d.desc}</p>
+        <p><strong>Location:</strong> ${d.loc}</p>
+        ${tag}`;
+      const m = document.getElementById('complaintModal');
+      m.classList.replace('hidden','flex');
+    }
+
+    function closeModal() {
+      document.getElementById('complaintModal').classList.replace('flex','hidden');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Complaints - City Connect</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .bg-tvm-green   { background-color: #2E7D32; }
+    .bg-tvm-blue    { background-color: #0288D1; }
+    .text-tvm-green { color: #2E7D32; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .status-open { background-color: #FFD700; color: black; }
+    .status-progress { background-color: #1E90FF; color: white; }
+    .status-resolved { background-color: #2E7D32; color: white; }
+    .active { font-weight: bold; text-decoration: underline; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<header class="bg-tvm-green text-white p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="flex items-center">
+      <a href="/index"><img src="/img/logo.jpg" alt="Logo" class="mr-2" width="100" height="100"></a>
+      <h1 class="text-xl font-bold">City Connect - Thiruvananthapuram</h1>
+    </div>
+    <nav class="flex space-x-4">
+      <a href="/index" class="hover:underline">Home</a>
+	  <a href="/services" class="hover:underline">Services</a>
+      <a href="/complaints" class="hover:underline ">Complaints</a>
+	  <a href="/incidents" class="hover:underline">Incidents</a>
+	  <a href="/nearby" class="hover:underline">Nearby</a>
+	  <a href="/collaboration" class="hover:underline">Collaboration</a>
+    </nav>
+    
+  </div>
+</header>
+	
+<section class="container mx-auto py-12">
+  <h2 class="text-3xl font-bold text-center text-tvm-green mb-8">Complaint Management</h2>
+
+  <div class="flex justify-center space-x-4 mb-6">
+    <button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="showTab('log-complaint')">Log Complaint</button>
+    <button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="showTab('search-complaint')">Search Complaint</button>
+    <button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="showTab('my-complaints')">My Complaint Status</button>
+  </div>
+
+  <!-- LOG COMPLAINT -->
+  <div id="log-complaint" class="tab-content active">
+    <form class="bg-white p-6 rounded-lg shadow" action="/api/complaints" method="post" enctype="multipart/form-data">
+      <div class="mb-4">
+        <label class="block">Complaint Type</label>
+        <select name="complaintType" class="w-full p-2 border rounded" required>
+          <option value="">Select Type</option>
+          <option value="kseb">KSEB</option>
+          <option value="kwa">KWA</option>
+          <option value="road">Road</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label class="block">Description</label>
+        <textarea name="description" class="w-full p-2 border rounded" required></textarea>
+      </div>
+      <div class="mb-4">
+        <label class="block">Location</label>
+        <input type="text" name="location" class="w-full p-2 border rounded" required>
+      </div>
+      <div class="mb-4">
+        <label class="block">Image</label>
+        <input type="file" name="image" class="w-full p-2 border rounded">
+      </div>
+      <button type="submit" class="bg-tvm-green text-white px-4 py-2 rounded">Submit</button>
+    </form>
+  </div>
+
+  <!-- SEARCH COMPLAINT -->
+  <div id="search-complaint" class="tab-content">
+    <div class="bg-white p-6 rounded-lg shadow space-y-4">
+      <div class="flex space-x-4">
+        <input id="search-id" type="number" placeholder="Complaint ID" class="w-full p-2 border rounded">
+        <button onclick="searchComplaint()" class="bg-tvm-blue text-white px-4 py-2 rounded">Search</button>
+      </div>
+      <div id="searchResult"></div>
+    </div>
+  </div>
+
+  <!-- MY COMPLAINTS -->
+  <div id="my-complaints" class="tab-content">
+    <div class="bg-white p-6 rounded-lg shadow space-y-4">
+      <div th:each="c : ${complaints}" class="p-4 border rounded flex justify-between items-center"
+           th:attr="data-id=${c.id}, data-type=${c.complaintType}, data-desc=${c.description}, data-loc=${c.location}, data-status=${c.status}, data-date=${c.date}, data-img=${c.imagePath}">
+        <div>
+          <h4 class="font-semibold">Complaint #<span th:text="${c.id}"></span></h4>
+          <p>
+            Type: <span th:text="${c.complaintType}"></span> |
+            Date: <span th:text="${c.date}"></span>
+          </p>
+        </div>
+        <div class="flex space-x-2 items-center">
+          <span th:classappend="
+                ${c.status.toLowerCase() == 'open'} ? 'status-open' :
+                (${c.status.toLowerCase() == 'resolved'} ? 'status-resolved' :
+                (${c.status.toLowerCase() == 'in progress'} ? 'status-progress' : ''))"
+                th:text="${c.status}" class="px-3 py-1 rounded"></span>
+          <button onclick="showModal(this.closest('[data-id]'))" class="bg-tvm-blue text-white px-3 py-1 rounded">View</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div id="complaintModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 md:w-1/2 relative">
+    <button onclick="closeModal()" class="absolute top-2 right-4 text-gray-700 text-2xl">&times;</button>
+    <h3 class="text-xl font-bold mb-4 text-tvm-green">Complaint Details</h3>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+  function showTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  function searchComplaint() {
+    const id = document.getElementById("search-id").value.trim();
+    const result = document.getElementById("searchResult");
+    result.innerHTML = "";
+
+    if (!id) {
+      result.innerHTML = "<p class='text-red-600'>Please enter a Complaint ID.</p>";
+      return;
+    }
+
+    fetch(`/api/complaints/${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .then(data => {
+        const img = data.imagePath ? `<img src="${data.imagePath}" class="mt-2 w-32 h-32 rounded" />` : '';
+        result.innerHTML = `
+          <div class="p-4 border rounded bg-gray-50">
+            <h4 class="font-semibold">Complaint #${data.id}</h4>
+            <p><strong>Type:</strong> ${data.complaintType}</p>
+            <p><strong>Status:</strong> ${data.status}</p>
+            <p><strong>Date:</strong> ${data.date}</p>
+            <p><strong>Description:</strong> ${data.description}</p>
+            <p><strong>Location:</strong> ${data.location}</p>
+            ${img}
+          </div>
+        `;
+      })
+      .catch(() => {
+        result.innerHTML = "<p class='text-red-600'>Complaint not found.</p>";
+      });
+  }
+
+  function showModal(element) {
+    const data = element.dataset;
+    const modal = document.getElementById("complaintModal");
+    const content = document.getElementById("modalContent");
+    const imgTag = data.img && data.img !== "null"
+      ? `<img src="${data.img}" class="mt-2 w-40 h-40 rounded" />` : '';
+    content.innerHTML = `
+      <p><strong>ID:</strong> ${data.id}</p>
+      <p><strong>Type:</strong> ${data.type}</p>
+      <p><strong>Status:</strong> ${data.status}</p>
+      <p><strong>Date:</strong> ${data.date}</p>
+      <p><strong>Description:</strong> ${data.desc}</p>
+      <p><strong>Location:</strong> ${data.loc}</p>
+      ${imgTag}
+    `;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }
+
+  function closeModal() {
+    document.getElementById("complaintModal").classList.remove("flex");
+    document.getElementById("complaintModal").classList.add("hidden");
+  }
+</script>
+</body>
+</html>
+
+
+	

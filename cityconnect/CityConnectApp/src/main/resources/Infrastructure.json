@@ -1,0 +1,466 @@
+[
+  {
+    "id": 1,
+    "name": "Central Parking Lot",
+    "type": "parking",
+    "latitude": 8.5241,
+    "longitude": 76.9366,
+    "address": "Near East Fort"
+  },
+  {
+    "id": 16,
+    "name": "Pay & Park, Thampanoor",
+    "type": "parking",
+    "latitude": 8.487815,
+    "longitude": 76.951561,
+    "address": "Opposite KSRTC Bus Terminal, Thampanoor, Thiruvananthapuram, Kerala 695001"
+  },
+  {
+    "id": 17,
+    "name": "Palayam Corporation Parking",
+    "type": "parking",
+    "latitude": 8.506523,
+    "longitude": 76.950111,
+    "address": "Connemara Market, Palayam, Thiruvananthapuram, Kerala 695033"
+  },
+  {
+    "id": 2,
+    "name": "EV Charging Station 1",
+    "type": "ev_charging",
+    "latitude": 8.5225,
+    "longitude": 76.9351,
+    "address": "MG Road"
+  },
+  {
+    "id": 18,
+    "name": "KSEB Charging Station - Vydyuthi Bhavanam",
+    "type": "ev_charging",
+    "latitude": 8.52453,
+    "longitude": 76.93805,
+    "address": "Vydyuthi Bhavanam, KSEB Office, Pattom, Thiruvananthapuram, Kerala 695004"
+  },
+  {
+    "id": 19,
+    "name": "Ather Grid Charging Station - Plamoodu",
+    "type": "ev_charging",
+    "latitude": 8.51975,
+    "longitude": 76.94271,
+    "address": "NB Plaza, Plamoodu, Thiruvananthapuram, Kerala 695003"
+  },
+  {
+    "id": 20,
+    "name": "Palayam PMG ATCS ",
+    "type": "atcs",
+    "latitude": 8.50827803147598, 
+    "longitude": 76.95007549279885,
+    "address": "Palayam Junction, Thiruvananthapuram, Kerala 695033"
+  },
+  {
+      "id": 20,
+      "name": "LMS ATCS ",
+      "type": "atcs",
+      "latitude": 8.508698527264388, 
+      "longitude": 76.95216236216669,
+      "address": "Palayam Junction, Thiruvananthapuram, Kerala 695033"
+    },
+	{
+	    "id": 20,
+	    "name": "Palayam Junction ATCS ",
+	    "type": "atcs",
+	    "latitude": 8.5074,
+	    "longitude": 76.9513,
+	    "address": "Palayam Junction, Thiruvananthapuram, Kerala 695033"
+	  },
+	  {
+	      "id": 20,
+	      "name": "Palayam University ATCS ",
+	      "type": "atcs",
+	      "latitude": 8.503936906940877,  
+	      "longitude": 76.95104105650077,
+	      "address": "Palayam Junction, Thiruvananthapuram, Kerala 695033"
+	    },
+  {
+    "id": 21,
+    "name": "Pattom Junction ATCS",
+    "type": "atcs",
+    "latitude": 8.518512074835664, 
+    "longitude": 76.94232480065375,
+    "address": "Pattom Junction, Thiruvananthapuram, Kerala 695004"
+  },
+  {
+    "id": 22,
+    "name": "Smart City Info Kiosk - East Fort",
+    "type": "info_kiosk",
+    "latitude": 8.48425,
+    "longitude": 76.94588,
+    "address": "Near Sree Padmanabhaswamy Temple Entrance, East Fort, Thiruvananthapuram"
+  },
+  {
+    "id": 23,
+    "name": "Smart City Info Kiosk - Museum",
+    "type": "info_kiosk",
+    "latitude": 8.51201,
+    "longitude": 76.95762,
+    "address": "Opposite Napier Museum Gate, Kanaka Nagar, Nanthancodu"
+  },
+  {
+    "id": 24,
+    "name": "Drinking Water Kiosk - Kanakakunnu",
+    "type": "drinking_water_kiosk",
+    "latitude": 8.51261,
+    "longitude": 76.95855,
+    "address": "Kanakakunnu Palace Main Entrance, Nanthancodu, Thiruvananthapuram"
+  },
+  {
+    "id": 25,
+    "name": "Drinking Water Kiosk - Secretariat",
+    "type": "drinking_water_kiosk",
+    "latitude": 8.4988,
+    "longitude": 76.9472,
+    "address": "Outside Kerala Secretariat South Gate, Statue, Thiruvananthapuram"
+  },
+  {
+    "id": 26,
+    "name": "Palayam Bus Shelter",
+    "type": "bus_shelter",
+    "latitude": 8.50559,
+    "longitude": 76.95135,
+    "address": "Near St. Joseph's Cathedral, Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 27,
+    "name": "Thampanoor KSRTC Bus Shelter",
+    "type": "bus_shelter",
+    "latitude": 8.48812,
+    "longitude": 76.95251,
+    "address": "In front of KSRTC Central Bus Station, Thampanoor, Thiruvananthapuram"
+  },
+  {
+    "id": 28,
+    "name": "PMG Bus Shelter",
+    "type": "bus_shelter",
+    "latitude": 8.5144,
+    "longitude": 76.9497,
+    "address": "PMG Junction, Thiruvananthapuram, Kerala 695033"
+  },
+  {
+    "id": 29,
+    "name": "On-Street Parking MG Road",
+    "type": "on_street_parking",
+    "latitude": 8.49755,
+    "longitude": 76.94793,
+    "address": "Designated Parking Zone, MG Road, near Secretariat, Statue"
+  },
+  {
+    "id": 30,
+    "name": "On-Street Parking Vazhuthacaud",
+    "type": "on_street_parking",
+    "latitude": 8.5097,
+    "longitude": 76.9601,
+    "address": "Near Kalabhavan Theatre, Vazhuthacaud, Thiruvananthapuram"
+  },
+  {
+    "id": 31,
+    "name": "Anganwadi Vanchiyoor",
+    "type": "anganwadi",
+    "latitude": 8.49658,
+    "longitude": 76.94052,
+    "address": "Vanchiyoor, Thiruvananthapuram, Kerala 695035"
+  },
+  {
+    "id": 32,
+    "name": "Anganwadi Pettah",
+    "type": "anganwadi",
+    "latitude": 8.4985,
+    "longitude": 76.9298,
+    "address": "Pettah, Thiruvananthapuram, Kerala 695024"
+  },
+  {
+    "id": 3,
+    "name": "General Hospital",
+    "type": "hospital",
+    "latitude": 8.5211,
+    "longitude": 76.9330,
+    "address": "Near Statue"
+  },
+  {
+    "id": 6,
+    "name": "SUT Hospital",
+    "type": "hospital",
+    "latitude": 8.516452907407132,
+    "longitude": 76.9406896239897,
+    "address": "Near, Palace View Rd, Vrindavan Gardens, Pattom, Thiruvananthapuram, Kerala 695004"
+  },
+  {
+    "id": 8,
+    "name": "Jubilee Memorial Hospital",
+    "type": "hospital",
+    "latitude": 8.502218687975272,
+    "longitude": 76.95222444355115,
+    "address": "Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 9,
+    "name": "University Health Center",
+    "type": "hospital",
+    "latitude": 8.50266622590209,
+    "longitude": 76.94774306839726,
+    "address": "Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 33,
+    "name": "Government Medical College Hospital",
+    "type": "hospital",
+    "latitude": 8.53005,
+    "longitude": 76.92451,
+    "address": "Ulloor - Akkulam Road, Medical College Junction, Chalakkuzhi, Thiruvananthapuram"
+  },
+  {
+    "id": 34,
+    "name": "KIMS Hospital",
+    "type": "hospital",
+    "latitude": 8.55201,
+    "longitude": 76.89958,
+    "address": "P.B. No.1, Anayara P.O, Thiruvananthapuram, Kerala 695029"
+  },
+  {
+    "id": 4,
+    "name": "KSEB Office, Vaidhuthi Bhavan",
+    "type": "kseb_office",
+    "latitude": 8.516343209382883,
+    "longitude": 76.93889773306803,
+    "address": "Vydyuthi Bhavanam, Pattam palace p.o Trivandrum-4, Kerala State, India, Pattom Pottakuzhy Rd, Vrindavan Gardens, Pattom, Thiruvananthapuram, Kerala"
+  },
+  {
+    "id": 35,
+    "name": "KSEB Section Office, Thampanoor",
+    "type": "kseb_office",
+    "latitude":8.486222609695886, 
+    "longitude": 76.94909259996236,
+    "address": "Power House Road, Thampanoor, Thiruvananthapuram, Kerala 695001"
+  },
+  {
+    "id": 36,
+    "name": "KWA Head Office",
+    "type": "kwa_office",
+    "latitude": 8.51523,
+    "longitude": 76.95922,
+    "address": "Jal Bhavan, Vellayambalam, Thiruvananthapuram, Kerala 695033"
+  },
+  {
+    "id": 37,
+    "name": "KWA Sub Division Office, Pattoor",
+    "type": "kwa_office",
+    "latitude": 8.4988,
+    "longitude": 76.9348,
+    "address": "Pattoor, Vanchiyoor, Thiruvananthapuram, Kerala 695035"
+  },
+  {
+    "id": 5,
+    "name": "Police Station",
+    "type": "police_station",
+    "latitude": 8.5232,
+    "longitude": 76.9320,
+    "address": "Fort"
+  },
+  {
+    "id": 10,
+    "name": "Museum Police Station",
+    "type": "police_station",
+    "latitude": 8.509762369629211,
+    "longitude": 76.95678330641523,
+    "address": "Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 11,
+    "name": "Contonment Police Station & Police Control Room.",
+    "type": "police_station",
+    "latitude": 8.498482147640592,
+    "longitude": 76.94989020824589,
+    "address": "Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 12,
+    "name": "Women's Police Station TVM City",
+    "type": "police_station",
+    "latitude": 8.498597977106872,
+    "longitude": 76.95009190705194,
+    "address": "Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 38,
+    "name": "Thampanoor Police Station",
+    "type": "police_station",
+    "latitude": 8.4891,
+    "longitude": 76.9521,
+    "address": "Aristo Road, Thampanoor, Thiruvananthapuram, Kerala 695001"
+  },
+  {
+    "id": 39,
+    "name": "Primary Health Centre, Fort",
+    "type": "primary_health_center",
+    "latitude": 8.47953,
+    "longitude": 76.94421,
+    "address": "Fort, Thiruvananthapuram, Kerala 695023"
+  },
+  {
+    "id": 40,
+    "name": "Urban Primary Health Center, Manacaud",
+    "type": "primary_health_center",
+    "latitude": 8.47585,
+    "longitude": 76.94901,
+    "address": "Manacaud, Thiruvananthapuram, Kerala 695009"
+  },
+  {
+    "id": 41,
+    "name": "Public Comfort Station - East Fort",
+    "type": "public_comfort_station",
+    "latitude": 8.48398,
+    "longitude": 76.94615,
+    "address": "Near Gandhi Park, East Fort, Thiruvananthapuram"
+  },
+  {
+    "id": 42,
+    "name": "Public Comfort Station - Thampanoor",
+    "type": "public_comfort_station",
+    "latitude": 8.4883,
+    "longitude": 76.9515,
+    "address": "Near KSRTC Bus Terminal, Thampanoor, Thiruvananthapuram"
+  },
+  {
+    "id": 43,
+    "name": "Supplyco People's Bazaar, Palayam",
+    "type": "supplyco_outlet",
+    "latitude": 8.50501,
+    "longitude": 76.95094,
+    "address": "Press Road, Puthenchanthai, Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 44,
+    "name": "Supplyco Supermarket, Statue",
+    "type": "supplyco_outlet",
+    "latitude": 8.49995,
+    "longitude": 76.94701,
+    "address": "MG Road, Statue, Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 7,
+    "name": "Kendriya Vidyalaya",
+    "type": "school",
+    "latitude": 8.520954332248488,
+    "longitude": 76.94104950723383,
+    "address": "Pattom, Thiruvananthapuram, Kerala 695004"
+  },
+  {
+    "id": 13,
+    "name": "LMS Upper primary School",
+    "type": "school",
+    "latitude": 8.509735581888776,
+    "longitude": 76.95261414998104,
+    "address": "Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 14,
+    "name": "St. Joseph's L.P. School",
+    "type": "school",
+    "latitude": 8.504732303451673,
+    "longitude": 76.95175593678836,
+    "address": "Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 15,
+    "name": "Government City Vocational Higher Secondary School",
+    "type": "school",
+    "latitude": 8.509909101264638,
+    "longitude": 76.94798585956141,
+    "address": "Palayam, Thiruvananthapuram"
+  },
+  {
+    "id": 45,
+    "name": "St. Mary's Higher Secondary School",
+    "type": "school",
+    "latitude": 8.52011,
+    "longitude": 76.93888,
+    "address": "Pattom, Thiruvananthapuram, Kerala 695004"
+  },
+  {
+    "id": 46,
+    "name": "Holy Angel's Convent Higher Secondary School",
+    "type": "school",
+    "latitude": 8.50854,
+    "longitude": 76.95603,
+    "address": "Museum Bains Compound Rd, Nanthancodu, Thiruvananthapuram"
+  },
+  {
+    "id": 47,
+    "name": "District Veterinary Centre, PMG",
+    "type": "veterinary_hospital",
+    "latitude": 8.51571,
+    "longitude": 76.94968,
+    "address": "PMG Junction, Law College Road, Thiruvananthapuram, Kerala 695033"
+  },
+  {
+    "id": 48,
+    "name": "Government Veterinary Hospital, Pettah",
+    "type": "veterinary_hospital",
+    "latitude": 8.5002,
+    "longitude": 76.9301,
+    "address": "Pettah, Thiruvananthapuram, Kerala 695024"
+  },
+  {
+    "id": 7,
+    "name": "Loyola School Skreekaryam",
+    "type": "school",
+    "latitude": 8.542728154985008, 
+    "longitude": 76.91292296575419,
+    "address": "GWR6+XWM, Sreekariyam - Aakkulam Rd, Opposite CTCRI, Bapuji Nagar, Sreekariyam, Thiruvananthapuram, Kerala 695017"
+  },
+  {
+    "id": 7,
+    "name": "St Mary HSS",
+    "type": "school",
+    "latitude": 8.526032846498204, 
+    "longitude": 76.93783355596966,
+    "address": "Kesavadasapuram Rd, Kailash Nagar, Pattom, Thiruvananthapuram, Kerala 695004"
+  },
+  {
+    "id": 7,
+    "name": "Sarvodaya Central School",
+    "type": "school",
+    "latitude": 8.544694431622302, 
+    "longitude": 76.94280198851277,
+    "address": "GWVR+PPP, Mar Ivanios, Nalanchira, Vidya Nagar, Thiruvananthapuram, Kerala 695015"
+  },
+  {
+    "id": 7,
+    "name": "Kendriya Vidyalaya",
+    "type": "school",
+    "latitude": 8.520954332248488,
+    "longitude": 76.94104950723383,
+    "address": "Pattom, Thiruvananthapuram, Kerala 695004"
+  },
+  {
+    "id": 7,
+    "name": "Kendriya Vidyalaya",
+    "type": "school",
+    "latitude": 8.520954332248488,
+    "longitude": 76.94104950723383,
+    "address": "Pattom, Thiruvananthapuram, Kerala 695004"
+  },
+  {
+    "id": 7,
+    "name": "Kendriya Vidyalaya",
+    "type": "school",
+    "latitude": 8.520954332248488,
+    "longitude": 76.94104950723383,
+    "address": "Pattom, Thiruvananthapuram, Kerala 695004"
+  },
+  {
+    "id": 7,
+    "name": "Kendriya Vidyalaya",
+    "type": "school",
+    "latitude": 8.520954332248488,
+    "longitude": 76.94104950723383,
+    "address": "Pattom, Thiruvananthapuram, Kerala 695004"
+  }
+]

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - City Connect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .bg-tvm-green { background-color: #2E7D32; }
+        .bg-tvm-blue { background-color: #0288D1; }
+        .text-tvm-green { color: #2E7D32; }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <header class="bg-tvm-green text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/"><img src="/img/logo.jpg" alt="TVM Logo" class="mr-2" width="80" height="80"></a>
+                <h1 class="text-2xl font-bold">City Connect - Thiruvananthapuram</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <div class="flex items-center justify-center h-screen">
+        <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
+            <h2 class="text-2xl font-bold text-tvm-green text-center mb-6">Admin Login</h2>
+            <input id="username" type="text" placeholder="Username" class="w-full mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-tvm-blue">
+            <input id="password" type="password" placeholder="Password" class="w-full mb-4 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-tvm-blue">
+            <button onclick="login()" class="w-full bg-tvm-green text-white py-2 rounded hover:bg-green-700">Login</button>
+            <p id="error" class="text-red-600 mt-3 hidden text-center">Invalid credentials</p>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script>
+        function login() {
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('error');
+
+            if (u === "admin" && p === "admin123") {
+                window.location.href = "/admin";
+            } else {
+                window.location.href = "/index";
+            }
+        }
+    </script>
+
+</body>
+</html>
+	

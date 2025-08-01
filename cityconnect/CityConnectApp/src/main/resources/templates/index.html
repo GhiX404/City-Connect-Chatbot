@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Connect Citizen App - Thiruvananthapuram</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .bg-tvm-green { background-color: #2E7D32; }
+        .bg-tvm-blue { background-color: #0288D1; }
+        .text-tvm-green { color: #2E7D32; }
+        .chatbot-window { display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; height: 400px; background: white; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 1000; }
+        .chatbot-window.active { display: block; }
+        .chatbot-header { background: #2E7D32; color: white; padding: 10px; border-radius: 10px 10px 0 0; }
+        .chatbot-body { padding: 10px; overflow-y: auto; height: 300px; }
+        .chatbot-footer { padding: 10px; border-top: 1px solid #ccc; }
+        .chatbot-button { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: #0288D1; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .active { font-weight: bold; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Header -->
+    <header class="bg-tvm-green text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="/index"><img src="/img/logo.jpg" alt="TVM Logo" class="mr-2" width="100" height="100"></a>
+                <h1 class="text-xl font-bold">City Connect - Thiruvananthapuram</h1>
+            </div>
+            <nav class="flex space-x-4">
+                <a href="/index" class="hover:underline active">Home</a>
+                <a href="/services" class="hover:underline">Services</a>
+                <a href="/complaints" class="hover:underline">Complaints</a>
+                <a href="/incidents" class="hover:underline">Incidents</a>
+                <a href="/nearby" class="hover:underline">Nearby</a>
+                <a href="/collaboration" class="hover:underline">Collaboration</a>
+            </nav>
+           
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-tvm-blue text-white text-center py-16">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold mb-4">Your Smart City, Connected</h2>
+            <p class="text-lg mb-6">Access civic services, report issues, and stay updated with City Connect.</p>
+            <button class="bg-tvm-green text-white px-6 py-2 rounded hover:bg-green-700" onclick="toggleChatbot()">Chat Now</button>
+        </div>
+    </section>
+
+    <!-- Quick Access Tiles -->
+    <section class="container mx-auto py-12">
+        <h3 class="text-2xl font-bold text-center text-tvm-green mb-8">Quick Access</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a href="/services" class="bg-white p-6 rounded-lg shadow hover:shadow-lg text-center">
+                <img src="/img/citizen.jpg" width="100" height="100" alt="Citizen Services" class="mx-auto mb-2">
+                <h4 class="text-lg font-semibold">Citizen Services</h4>
+                <p>Access government services like certificates, taxes, and more.</p>
+            </a>
+            <a href="/complaints" class="bg-white p-6 rounded-lg shadow hover:shadow-lg text-center">
+                <img src="/img/complaint mngmt.jpg" width="100" height="100" alt="Complaints" class="mx-auto mb-2">
+                <h4 class="text-lg font-semibold">Complaint Management</h4>
+                <p>Log and track civic complaints easily.</p>
+            </a>
+            <a href="/incidents" class="bg-white p-6 rounded-lg shadow hover:shadow-lg text-center">
+                <img src="/img/incident.png" width="100" height="100" alt="Incidents" class="mx-auto mb-2">
+                <h4 class="text-lg font-semibold">Incident Report</h4>
+                <p>Report and monitor incidents in real-time.</p>
+            </a>
+            <a href="/nearby" class="bg-white p-6 rounded-lg shadow hover:shadow-lg text-center">
+                <img src="/img/nearby.jpg" width="100" height="100" alt="Nearby" class="mx-auto mb-2">
+                <h4 class="text-lg font-semibold">Nearby Services</h4>
+                <p>Find parking, hospitals, and more near you.</p>
+            </a>
+            <a href="/trending" class="bg-white p-6 rounded-lg shadow hover:shadow-lg text-center">
+                <img src="/img/trend.jpg" width="100" height="100" alt="Trending" class="mx-auto mb-2">
+                <h4 class="text-lg font-semibold">What's Trending</h4>
+                <p>Stay updated with city news and trends.</p>
+            </a>
+            <a href="/collaboration" class="bg-white p-6 rounded-lg shadow hover:shadow-lg text-center">
+                <img src="/img/colab.png" width="100" height="100" alt="Collaboration" class="mx-auto mb-2">
+                <h4 class="text-lg font-semibold">Collaboration</h4>
+                <p>Share ideas and participate in polls.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- News Feed -->
+    <section class="container mx-auto py-12 bg-white rounded-lg shadow">
+        <h3 class="text-2xl font-bold text-center text-tvm-green mb-8">News & Updates</h3>
+        <div class="space-y-4">
+            <div class="p-4 border-b">
+                <h4 class="text-lg font-semibold">New Bus Routes Announced</h4>
+                <p>KSRTC introduces new routes starting August 2025. Check schedules in the app.</p>
+            </div>
+            <div class="p-4 border-b">
+                <h4 class="text-lg font-semibold">Property Tax Deadline</h4>
+                <p>Pay your property tax by July 31, 2025, to avoid penalties.</p>
+            </div>
+            <div class="p-4">
+                <h4 class="text-lg font-semibold">EV Charging Stations Added</h4>
+                <p>New EV charging units installed at 5 locations. Find them in Nearby Services.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-button" onclick="toggleChatbot()">💬</div>
+    <div id="chatbotWindow" class="chatbot-window">
+        <div class="chatbot-header">
+            <h4 class="text-lg font-semibold">City Connect Assistant</h4>
+        </div>
+        <div class="chatbot-body">
+			<div id="chatMessages" class="space-y-2">
+			    <div class="text-sm text-gray-700">Welcome! How can I assist you today?</div>
+			</div>
+			<div id="chatOptions" class="flex flex-wrap gap-2 mt-2">
+			    <button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="sendChatOption('Incident Report')">Incident Report</button>
+				<button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="sendChatOption('File a complaint')">Complaint Management</button>
+				<button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="sendChatOption('Citizen Services')">Citizen Services</button>
+				<button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="sendChatOption('Find Nearby')">Nearby</button>
+			    <button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="sendChatOption('Contact Admin')">Contact Admin</button>
+			    <button class="bg-tvm-blue text-white px-4 py-2 rounded" onclick="sendChatOption('News')">Check News</button>
+			</div>
+
+        </div>
+        <div class="chatbot-footer">
+			<div class="flex space-x-2">
+			    <input id="chatInput" type="text" placeholder="Type your query..." class="w-full p-2 border rounded">
+			    <button onclick="handleUserInput()" class="bg-tvm-blue text-white px-4 py-2 rounded">Send</button>
+			</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-tvm-green text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>© 2025 City Connect - Thiruvananthapuram. All rights reserved.</p>
+            <div class="mt-2">
+                <a href="#" class="text-white hover:underline mx-2">Privacy Policy</a>
+                <a href="#" class="text-white hover:underline mx-2">Contact Support</a>
+            </div>
+        </div>
+    </footer>
+
+	<script>
+		const chatOptions = document.getElementById('chatOptions');
+		const chatBody = document.querySelector('.chatbot-body'); // Use querySelector for class
+
+		function hideChatOptions() {
+		    chatOptions.style.display = 'none';
+		}
+
+		function showChatOptions() {
+		    chatOptions.style.display = 'flex'; // Use 'flex' to match the original style
+		}
+	    function toggleChatbot() {
+	        const chatbotWindow = document.getElementById('chatbotWindow');
+	        chatbotWindow.classList.toggle('active');
+	    }
+
+		function sendChatOption(option) {
+		    appendUserMessage(option);
+		    hideChatOptions(); // <-- ADD THIS LINE
+		    sendToBackend(option);
+		}
+
+		function handleUserInput() {
+		    const input = document.getElementById("chatInput").value.trim();
+		    if (input !== "") {
+		        appendUserMessage(input);
+		        hideChatOptions(); // <-- ADD THIS LINE
+		        sendToBackend(input);
+		        document.getElementById("chatInput").value = "";
+		    }
+		}
+
+	    function appendUserMessage(message) {
+	        const chatBox = document.getElementById("chatMessages");
+	        const userMsg = document.createElement("div");
+	        userMsg.className = "text-right text-sm text-blue-700";
+	        userMsg.textContent = "You: " + message;
+	        chatBox.appendChild(userMsg);
+	    }
+
+	    function appendBotMessage(message) {
+	        const chatBox = document.getElementById("chatMessages");
+	        const botMsg = document.createElement("div");
+	        botMsg.className = "text-left text-sm text-gray-700";
+	        botMsg.textContent = message;
+	        chatBox.appendChild(botMsg);
+	        chatBox.scrollTop = chatBox.scrollHeight;
+	    }
+
+	    function sendToBackend(message) {
+	        fetch("http://localhost:8000/chat", {
+	            method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            body: JSON.stringify({ message: message })
+	        })
+	        .then(response => response.json())
+			.then(data => {
+			    if (data && data.response) {
+			        appendBotMessage(data.response);
+			        // ADD THIS 'IF' STATEMENT
+			        if (data.is_complete === true) {
+			            showChatOptions();
+			        }
+			    } else {
+			        appendBotMessage("Sorry, something went wrong. Please try again.");
+			    }
+			})
+	        .catch(err => {
+	            appendBotMessage("Error connecting to chatbot backend.");
+	            console.error(err);
+	        });
+	    }
+
+	    document.addEventListener("DOMContentLoaded", () => {
+	        const input = document.getElementById("chatInput");
+	        input.addEventListener("keypress", function(e) {
+	            if (e.key === "Enter") {
+	                e.preventDefault();
+	                handleUserInput();
+	            }
+	        });
+	    });
+	</script>
+
+</body>
+</html>

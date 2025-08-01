@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services – City Connect</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .bg-tvm-green      { background-color: #2E7D32; }
+    .bg-tvm-blue       { background-color: #0288D1; }
+    .text-tvm-green    { color: #2E7D32; }
+    .accordion-content { display: none; }
+    .accordion-item.open .accordion-content { display: block; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Header -->
+  <header class="bg-tvm-green text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center">
+        <a href="/index"><img src="/img/logo.jpg" alt="Logo" class="mr-2" width="100" height="100"></a>
+        <h1 class="text-xl font-bold">City Connect - Thiruvananthapuram</h1>
+      </div>
+      <nav class="flex space-x-4">
+        <a href="/index" class="hover:underline">Home</a>
+        <a href="/services" class="hover:underline active">Services</a>
+        <a href="/complaints" class="hover:underline">Complaints</a>
+        <a href="/incidents" class="hover:underline">Incidents</a>
+        <a href="/nearby" class="hover:underline">Nearby</a>
+        <a href="/collaboration" class="hover:underline">Collaboration</a>
+      </nav>
+      
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-tvm-blue text-white text-center py-12">
+    <div class="container mx-auto">
+      <h2 class="text-3xl font-bold mb-2">All Citizen Services</h2>
+      <p class="mb-4">Browse domains and click to expand sub‑services.</p>
+    </div>
+  </section>
+
+  <!-- Accordion List -->
+  <section class="container mx-auto py-8">
+    <ul class="space-y-4">
+      <!-- TVM Corporation -->
+      <li class="bg-white rounded-lg shadow overflow-hidden accordion-item">
+        <button class="w-full flex justify-between items-center p-4 focus:outline-none"
+                onclick="toggleAccordion(this)">
+          <span class="font-semibold">TVM Corporation</span>
+          <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <ul class="accordion-content bg-gray-50 px-8 pb-4 space-y-2">
+          <li><a href="https://lsgkerala.gov.in/en/e-governance/certificates" class="block hover:text-tvm-green" target="_blank">Birth/death/marriage registration</a></li>
+          <li><a href="https://lsgkerala.gov.in/en/e-governance/certificates" class="block hover:text-tvm-green" target="_blank">Caste/income certificate</a></li>
+          <li><a href="https://lsgkerala.gov.in/en/e-governance/certificates" class="block hover:text-tvm-green" target="_blank">Ration card</a></li>
+          <li><a href="https://lsgkerala.gov.in/en/e-governance/certificates" class="block hover:text-tvm-green" target="_blank">Property tax</a></li>
+          <li><a href="https://lsgkerala.gov.in/en/e-governance/certificates" class="block hover:text-tvm-green" target="_blank">Community/caste/income/non‑creamy layer certificate</a></li>
+        </ul>
+      </li>
+
+      <!-- Directorate of Technical Education -->
+      <li class="bg-white rounded-lg shadow overflow-hidden accordion-item">
+        <button class="w-full flex justify-between items-center p-4 focus:outline-none"
+                onclick="toggleAccordion(this)">
+          <span class="font-semibold">Directorate of Technical Education</span>
+          <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <ul class="accordion-content bg-gray-50 px-8 pb-4 space-y-2">
+          <li><a href="https://www.dtekerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Exam registration</a></li>
+          <li><a href="https://www.dtekerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Original certificate</a></li>
+          <li><a href="https://www.dtekerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Original grade card</a></li>
+          <li><a href="https://www.dtekerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Provisional certificate</a></li>
+          <li><a href="https://www.dtekerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Provisional grade card</a></li>
+        </ul>
+      </li>
+
+      <!-- General Education Department -->
+      <li class="bg-white rounded-lg shadow overflow-hidden accordion-item">
+        <button class="w-full flex justify-between items-center p-4 focus:outline-none"
+                onclick="toggleAccordion(this)">
+          <span class="font-semibold">General Education Department</span>
+          <svg class="w-6 h-6 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <ul class="accordion-content bg-gray-50 px-8 pb-4 space-y-2">
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Certificate correction</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Duplicate certificate</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">HSC scholarship</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">HSE certificate of genuineness</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">HSE duplicate migration certificate</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">HSE migration certificate</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">HSE second year exam registration</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">KTET Exam application</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Marklist</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">National means‑cum‑merit scholarship</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Plus one admission (HSCAP)</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">Plus one allotment</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">VHSE admission</a></li>
+          <li><a href="https://education.kerala.gov.in/" class="block hover:text-tvm-green" target="_blank">VHSE allotment</a></li>
+       
+        </ul>
+      </li>
+
+      <!-- Add additional domains in the same pattern -->
+      <!-- Kerala State Higher Education Dept, Health/E-health, etc. -->
+
+    </ul>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-tvm-green text-white py-6">
+    <div class="container mx-auto text-center">
+      <p>© 2025 City Connect - Thiruvananthapuram. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleAccordion(btn) {
+      const item = btn.closest('.accordion-item');
+      item.classList.toggle('open');
+      btn.querySelector('svg').classList.toggle('rotate-180');
+    }
+  </script>
+</body>
+</html>
