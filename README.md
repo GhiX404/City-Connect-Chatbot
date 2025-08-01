@@ -69,22 +69,32 @@ City Connect is a full-stack web application designed to enhance citizen engagem
 ##File Structure
 city-connect/
 ├── backend/
-│ ├── src/main/java/com/cityconnect/
-│ │ ├── controller/ (HomeController.java, ChatbotController.java)
-│ │ ├── model/ (Complaint.java, Incident.java, Idea.java, Poll.java, PollVote.java, etc.)
-│ │ └── repository/ (JpaRepository interfaces)
-│ └── resources/templates/
-│ ├── index.html
-│ ├── complaints.html
-│ ├── incidents.html
-│ ├── collaboration.html
-│ ├── admin.html
+│   ├── src/main/java/com/cityconnect/app/
+│   │   ├── controller/
+│   │   │   ├── HomeController.java
+│   │   │   └── ChatbotController.java
+│   │   ├── model/
+│   │   │   ├── Complaint.java
+│   │   │   ├── Incident.java
+│   │   │   ├── Idea.java
+│   │   │   ├── Poll.java
+│   │   │   └── etc. (PollVote.java, Comment.java, etc.)
+│   │   └── repository/
+│   │       └── (JpaRepository interfaces)
+│   └── src/main/resources/
+│       └── templates/
+│           ├── index.html
+│           ├── complaints.html
+│           ├── incidents.html
+│           ├── collaboration.html
+│           └── admin.html
+│
 ├── chatbot/
-│ └── chatbot.py <-- Hybrid chatbot with Gemini LLM fallback
+│   └── chatbot.py  # Hybrid chatbot with Gemini LLM fallback
 │
 ├── static/
-│ ├── img/
-│ └── css/
+│   ├── img/
+│   └── css/
 │
 └── data/
-└── infrastructure.json <-- used by Nearby feature (hospitals, schools, etc.)
+└── infrastructure.json  # Used by the Nearby feature (hospitals, schools, etc.)
