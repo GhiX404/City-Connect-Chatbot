@@ -56,6 +56,16 @@ City Connect is a full-stack web application designed to enhance citizen engagem
 - Gemini LLM API integration (via `google.generativeai`)
 - Hybrid approach: rule-based + fallback to LLM
 
+
+## 🧠 How Gemini LLM is Integrated
+
+- For out-of-scope user queries, the message is routed to Gemini:
+  ```python
+  response = model.generate_content(user_message)
+  return {"response": response.text, "is_complete": True}
+
+## 🚦 Project Structure
+
 ##File Structure
 city-connect/
 ├── backend/
@@ -78,13 +88,3 @@ city-connect/
 │
 └── data/
 └── infrastructure.json <-- used by Nearby feature (hospitals, schools, etc.)
-
-## 🧠 How Gemini LLM is Integrated
-
-- For out-of-scope user queries, the message is routed to Gemini:
-  ```python
-  response = model.generate_content(user_message)
-  return {"response": response.text, "is_complete": True}
-
-## 🚦 Project Structure
-
