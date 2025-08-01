@@ -7,7 +7,7 @@ import google.generativeai as genai
 #genai.configure(api_key=os.environ.get("AIzaSyCtwChI10yOifMi5PVQsjjNAlr_ReKAPzo"))
 
 # Or, if you're not using environment variables (not recommended for production):
-gemini_api_key = "AIzaSyCtwChI10yOifMi5PVQsjjNAlr_ReKAPzo"
+gemini_api_key = #ENTER API KEY
 genai.configure(api_key=gemini_api_key)
 from flask import Flask, request, jsonify
 from flask_cors import CORS
